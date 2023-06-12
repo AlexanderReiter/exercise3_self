@@ -3,7 +3,7 @@ stages:
 
 image: maven:3.8.5-openjdk-17
 
-build: #job
+build: # job
   stage: build
   tags:
     - docker
