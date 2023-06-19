@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - analyze
   - package
   - deploy
 
@@ -8,6 +9,7 @@ image: maven:3.8.5-openjdk-17
 
 variables:
   maven_packages_cache: ".m2/repository"
+  sonar_args: "-Dsonar.projectKey=game2048 -Dsonar.projectName='game2048' -Dsonar.exclusions=**/*.js"
   MAVEN_OPTS: "-Dmaven.repo.local=./$maven_packages_cache"
 
 build: # job
@@ -42,6 +44,20 @@ test: # job
       - "target/site/jacoco/*"
   script:
     - mvn test
+
+analyze:
+  stage: analyze
+  tags:
+    - docker
+  dependencies:
+    - build
+    - test
+  cache:
+    paths:
+      - $maven_packages_cache
+  script:
+    - mvn verify sonar:sonar $sonar_args
+  allow_failure: true
 
 package: # job
   stage: package
