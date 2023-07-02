@@ -56,4 +56,4 @@ jobs:
           name: game2048.war
       - name: Deploy
         run:
-          cp _work/exercise3_self/exercise3_self/target/game2048.war /usr/local/tomcat/webapps/game2048.war
+          cp /home/github-runner/actions-runner/_work/exercise3_self/exercise3_self/target/game2048.war /usr/local/tomcat/webapps/game2048.war
