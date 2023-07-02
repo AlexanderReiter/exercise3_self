@@ -41,3 +41,19 @@ jobs:
           java-version: 17
       - name: Package
         run: mvn package
+  deploy:
+    runs-on: self-hosted
+    needs: package
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Deploy
+        run:
+          docker rm --force tomcat
+          docker image rm --force game2048
+          echo -e 'FROM tomcat:10.0-jdk17-openjdk-slim-bullseye \n COPY ./target/game2048.war /usr/local/tomcat/webapps' | docker build -t game2048 -f- .
+          docker run --rm -d --name tomcat -p 8080:8080 game2048
