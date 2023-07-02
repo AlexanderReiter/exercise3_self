@@ -17,4 +17,15 @@ Effort in hours: __
 
 ### Task 1.c
 
-<!--- describe your solution here --->
+#### github-runner
+
+pw: github-runner
+
+default runner group
+
+name: docker
+
+labels: docker
+
+work folder: _work
+
