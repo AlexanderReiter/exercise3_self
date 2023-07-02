@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: game2048.war
-          path: _work/exercise3_self/exercise3_self/target/game2048.war
+          path: /home/github-runner/actions-runner/_work/exercise3_self/exercise3_self/target/game2048.war
   deploy:
     runs-on: self-hosted
     needs: package
@@ -54,7 +54,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: game2048.war
-          path: _work/exercise3_self/exercise3_self/target/game2048.war
       - name: Deploy
         run:
           cp _work/exercise3_self/exercise3_self/target/game2048.war /usr/local/tomcat/webapps/game2048.war
